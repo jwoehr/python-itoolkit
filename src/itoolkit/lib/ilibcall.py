@@ -3,7 +3,7 @@ import warnings
 from ..transport.direct import DirectTransport
 
 
-class iLibCall(DirectTransport): # noqa N801 gotta live with history
+class iLibCall(DirectTransport):  # noqa N801 gotta live with history
     """
     Transport XMLSERVICE direct job call (within job/process calls).
 
@@ -13,12 +13,41 @@ class iLibCall(DirectTransport): # noqa N801 gotta live with history
       iccsid (int): optional - XMLSERVICE EBCDIC CCSID (0 = default jobccsid)
       pccsid (int): optional - XMLSERVICE ASCII CCSID
     """
-    def __init__(self, ictl='*here *cdata', ipc='*na', iccsid=0, pccsid=1208):
+
+    def __init__(
+        self,
+        ictl: str = "*here *cdata",
+        ipc: str = "*na",
+        iccsid: str = 0,
+        pccsid: str = 1208,
+    ):
+        """
+        Parameters
+        ----------
+        ictl : str, optional
+            DESCRIPTION. The default is '*here *cdata'.
+        ipc : str, optional
+            DESCRIPTION. The default is '*na'.
+        iccsid : str, optional
+            DESCRIPTION. The default is 0.
+        pccsid : str, optional
+            DESCRIPTION. The default is 1208.
+
+        Raises
+        ------
+        ValueError
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         warnings.warn(
-            "iLibCall is deprecated, "
-            "use itoolkit.transport.DirectTransport instead",
+            "iLibCall is deprecated, " "use itoolkit.transport.DirectTransport instead",
             category=DeprecationWarning,
-            stacklevel=2)
+            stacklevel=2,
+        )
 
         if iccsid != 0:
             raise ValueError("iccsid must be 0 (job ccsid)")
