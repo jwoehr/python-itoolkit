@@ -7,11 +7,6 @@ class iLibCall(DirectTransport):  # noqa N801 gotta live with history
     """
     Transport XMLSERVICE direct job call (within job/process calls).
 
-    Args:
-      ictl   (str): optional - XMLSERVICE control ['*here','*sbmjob']
-      ipc    (str): optional - XMLSERVICE job route for *sbmjob '/tmp/myunique'
-      iccsid (int): optional - XMLSERVICE EBCDIC CCSID (0 = default jobccsid)
-      pccsid (int): optional - XMLSERVICE ASCII CCSID
     """
 
     def __init__(
@@ -25,18 +20,18 @@ class iLibCall(DirectTransport):  # noqa N801 gotta live with history
         Parameters
         ----------
         ictl : str, optional
-            DESCRIPTION. The default is '*here *cdata'.
+            XMLSERVICE control ['*here','*sbmjob']. The default is '*here *cdata'.
         ipc : str, optional
-            DESCRIPTION. The default is '*na'.
+            XMLSERVICE job route for *sbmjob '/tmp/myunique'. The default is '*na'.
         iccsid : str, optional
-            DESCRIPTION. The default is 0.
+            XMLSERVICE EBCDIC CCSID (0 = default jobccsid). The default is 0.
         pccsid : str, optional
-            DESCRIPTION. The default is 1208.
+            XMLSERVICE ASCII CCSID. The default is 1208.
 
         Raises
         ------
         ValueError
-            DESCRIPTION.
+            On incorrect iccsid or pccsid.
 
         Returns
         -------
@@ -57,13 +52,19 @@ class iLibCall(DirectTransport):  # noqa N801 gotta live with history
 
         super().__init__(ctl=ictl, ipc=ipc)
 
-    def call(self, itool):
-        """Call XMLSERVICE with accumulated actions.
+    def call(self, itool) -> str:
+        """
+        Call XMLSERVICE with accumulated actions.
 
-        Args:
-          itool: An iToolkit object
+        Parameters
+        ----------
+        itool : TYPE
+            An iToolkit object.
 
-        Returns:
-          The XML returned from XMLSERVICE
+        Returns
+        -------
+        str
+            The XML returned from XMLSERVICE.
+
         """
         return super().call(itool)
