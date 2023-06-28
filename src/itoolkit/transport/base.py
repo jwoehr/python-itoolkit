@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Base classes for transports
+Base class for XMLSERVICE transports
 """
 
 from .errors import TransportClosedError
