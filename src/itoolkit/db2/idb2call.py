@@ -19,6 +19,7 @@ from ..toolkit import iToolKit
 
 
 class iDB2Call(DatabaseTransport):  # noqa N801
+    # pylint: disable-msg=too-many-arguments, invalid-name
     """
     Transport XMLSERVICE calls over DB2 connection.
 
@@ -99,7 +100,7 @@ class iDB2Call(DatabaseTransport):  # noqa N801
 
         super().__init__(conn=conn, ctl=ictl, ipc=ipc, schema=ilib)
 
-    def call(self, itool: iToolKit):
+    def call(self, itool: iToolKit):  # pylint: disable-msg=useless-parent-delegation
         """Call XMLSERVICE with accumulated actions.
 
         Args:
