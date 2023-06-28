@@ -1,16 +1,34 @@
+# -*- coding: utf-8 -*-
+"""
+Base classes for transports
+"""
+
 from .errors import TransportClosedError
+from ..toolkit import iToolKit
 
 
 class XmlServiceTransport:
-    """XMLSERVICE transport base class
+    """XMLSERVICE transport base class"""
 
-    Args:
-      ctl (str): XMLSERVICE control options, see
-        http://yips.idevcloud.com/wiki/index.php/XMLService/XMLSERVICEQuick#ctl
-      ipc (str): An XMLSERVICE ipc key for stateful conections, see
-        http://yips.idevcloud.com/wiki/index.php/XMLService/XMLSERVICEConnect
-    """
-    def __init__(self, ctl="*here *cdata", ipc="*na"):
+    def __init__(self, ctl: str = "*here *cdata", ipc: str = "*na"):
+        """
+
+        Parameters
+        ----------
+        ctl : str, optional
+            XMLSERVICE control options, see
+              http://yips.idevcloud.com/wiki/index.php/XMLService/XMLSERVICEQuick#ctl .
+              The default is "*here *cdata".
+        ipc : str, optional
+            An XMLSERVICE ipc key for stateful conections, see
+              http://yips.idevcloud.com/wiki/index.php/XMLService/XMLSERVICEConnect
+              The default is "*na".
+
+        Returns
+        -------
+        None.
+
+        """
         self.ipc = ipc
         self.ctl = ctl
 
@@ -20,7 +38,16 @@ class XmlServiceTransport:
     def __del__(self):
         self.close()
 
-    def trace_data(self):
+    def trace_data(self) -> str:
+        """
+        Return formatted trace data
+
+        Returns
+        -------
+        str
+            trace data.
+
+        """
         output = ""
 
         for i in self.trace_attrs:
@@ -28,29 +55,36 @@ class XmlServiceTransport:
                 trace, attr = i
             else:
                 trace = attr = i
-
-            output += " {}({})".format(trace, getattr(self, attr))
+            output += " {}({})".format(  # pylint: disable-msg=consider-using-f-string
+                trace, getattr(self, attr)
+            )
 
         return output
 
-    def call(self, tk):
-        """Call XMLSERVICE with accumulated actions.
-
-        Args:
-          tk (iToolKit): An iToolkit object
-
-        Returns:
-          str: The XML returned from XMLSERVICE
+    def call(self, itool: iToolKit) -> str:
+        """
+        Call XMLSERVICE with accumulated actions.
 
         Attention:
           Subclasses should implement :py:func:`_call` to call XMLSERVICE
           instead of overriding this method.
+
+        Parameters
+        ----------
+        itool : iToolKit
+            An iToolkit object.
+
+        Returns
+        -------
+        str
+            The XML returned from XMLSERVICE.
+
         """
         self._ensure_open()
 
-        return self._call(tk)
+        return self._call(itool)
 
-    def _call(self, tk):
+    def _call(self, itool: iToolKit):
         """Called by :py:func:`call`. This should be overridden by subclasses
         to the call function instead of overriding :py:func:`call` directly.
         """
@@ -80,4 +114,4 @@ class XmlServiceTransport:
     def _close(self):
         """Called by `close`. This should be overridden by subclasses to close
         any resources specific to that implementation."""
-        pass
+        pass  # pylint: disable-msg=unnecessary-pass
