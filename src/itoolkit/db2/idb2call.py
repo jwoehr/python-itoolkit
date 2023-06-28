@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Spyder Editor
-
-This is a temporary script file.
+itoolkit database transport
+deprecated
 """
 
 # -*- coding: utf-8 -*-
