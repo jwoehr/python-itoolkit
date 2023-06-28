@@ -15,6 +15,7 @@ try:
 except ImportError:
     pass
 from ..transport.database import DatabaseTransport
+from ..toolkit import iToolKit
 
 
 class iDB2Call(DatabaseTransport):  # noqa N801
@@ -98,7 +99,7 @@ class iDB2Call(DatabaseTransport):  # noqa N801
 
         super().__init__(conn=conn, ctl=ictl, ipc=ipc, schema=ilib)
 
-    def call(self, itool):
+    def call(self, itool: iToolKit):
         """Call XMLSERVICE with accumulated actions.
 
         Args:

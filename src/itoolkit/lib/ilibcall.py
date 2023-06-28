@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import warnings
 from ..transport.direct import DirectTransport
+from ..toolkit import iToolKit
 
 
 class iLibCall(DirectTransport):  # noqa N801 gotta live with history
@@ -52,7 +53,7 @@ class iLibCall(DirectTransport):  # noqa N801 gotta live with history
 
         super().__init__(ctl=ictl, ipc=ipc)
 
-    def call(self, itool) -> str:
+    def call(self, itool: iToolKit) -> str:
         """
         Call XMLSERVICE with accumulated actions.
 

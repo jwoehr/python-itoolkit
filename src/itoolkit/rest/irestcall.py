@@ -2,6 +2,7 @@
 import warnings
 import os
 from ..transport.http import HttpTransport
+from ..toolkit import iToolKit
 
 
 class iRestCall(HttpTransport):  # noqa N801
@@ -74,7 +75,7 @@ class iRestCall(HttpTransport):  # noqa N801
             url=iurl, user=iuid, password=ipwd, database=idb2, ctl=ictl, ipc=ipc
         )
 
-    def call(self, itool) -> str:
+    def call(self, itool: iToolKit) -> str:
         """
         Call XMLSERVICE with accumulated actions.
 
